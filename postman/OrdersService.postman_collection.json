@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "d47d4fc6-621b-482d-af4e-4977789dd397",
+		"name": "OrdersService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4da9b17-6694-4a9b-a7e1-e5de02cb6161",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"productId\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"currency\": \"EUR\",\r\n  \"name\": \"HDD\",\r\n  \"price\": 120.99\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/product",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4da9b17-6694-4a9b-a7e1-e5de02cb6161",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"orderId\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"test@test.com\",\r\n  \"productIds\": [\r\n  \t\"{{productId}}\"\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/order",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"currency\": \"EUR\",\r\n  \"name\": \"SDD\",\r\n  \"price\": 290\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/product/{{productId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"product",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "689fc9bb-d0a1-4839-a35d-745ec5359b3e",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var data = JSON.parse(responseBody);",
+							"pm.environment.set(\"downloadUrl\", data.Download_url);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/products/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/orders?startDate=2020-01-01T10:10:10.100Z&endDate=2020-12-12T11:44:40.635Z",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2020-01-01T10:10:10.100Z"
+						},
+						{
+							"key": "endDate",
+							"value": "2020-12-12T11:44:40.635Z"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
