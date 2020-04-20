@@ -1,4 +1,4 @@
-# **Web service**
+# **Web service / Viabill interview**
 
 REST / JSON web service in Java using Spring Boot (RestController) with an API that
 supports basic products CRUD:
